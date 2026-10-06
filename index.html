@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es-CO" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!--
+      SEO: titulo, descripcion y JSON-LD de FAQ se inyectan en build desde
+      src/i18n/es.ts (ver vite.config.ts). El dominio sale de VITE_SITE_URL
+      (placeholder: https://barbattia.example). En runtime, el idioma activo
+      actualiza <html lang>, title, description y Open Graph.
+    -->
+    <title>__SEO_TITLE__</title>
+    <meta name="description" content="__SEO_DESCRIPTION__" />
+    <link rel="canonical" href="__SITE_URL__/" />
+    <!--
+      hreflang: el sitio es una sola URL con selector de idioma en cliente.
+      Si en el futuro se publican URLs por idioma (/es, /en o ?lang=en),
+      cambia estos href para que apunten a cada version.
+    -->
+    <link rel="alternate" hreflang="es" href="__SITE_URL__/" />
+    <link rel="alternate" hreflang="en" href="__SITE_URL__/" />
+    <link rel="alternate" hreflang="x-default" href="__SITE_URL__/" />
+
+    <meta name="theme-color" content="#090909" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/brand/icon-192.png" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Barbattia" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:url" content="__SITE_URL__/" />
+    <meta property="og:title" content="__SEO_TITLE__" />
+    <meta property="og:description" content="__SEO_DESCRIPTION__" />
+    <meta property="og:image" content="__SITE_URL__/brand/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Barbattia — Tu estilo, donde estés" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="__SEO_TITLE__" />
+    <meta name="twitter:description" content="__SEO_DESCRIPTION__" />
+    <meta name="twitter:image" content="__SITE_URL__/brand/og-image.jpg" />
+
+    <!-- Fuentes: Fraunces (display) + Inter (texto) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap"
+    />
+
+    <!-- Tema antes de pintar (evita parpadeo). Misma clave que src/config/site.ts -->
+    <script>
+      (function () {
+        var t;
+        try { t = localStorage.getItem('barbattia.theme'); } catch (e) {}
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t;
+      })();
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "__SITE_URL__/#organization",
+            "name": "Barbattia",
+            "url": "__SITE_URL__/",
+            "logo": "__SITE_URL__/brand/logo-512.jpg",
+            "slogan": "Tu estilo, donde estés"
+          },
+          {
+            "@type": "MobileApplication",
+            "name": "Barbattia",
+            "operatingSystem": "iOS, Android",
+            "applicationCategory": "LifestyleApplication",
+            "inLanguage": ["es", "en"],
+            "description": "__SEO_DESCRIPTION__",
+            "publisher": { "@id": "__SITE_URL__/#organization" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "COP" }
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json" id="ld-faq">__FAQ_JSONLD__</script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding:24px;font-family:system-ui;color:#F6F1EB;background:#090909">
+        Barbattia — Tu estilo, donde estés. Activa JavaScript para ver el sitio completo.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

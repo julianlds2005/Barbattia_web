@@ -1,0 +1,317 @@
+/* Reset y base -------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--copper-400);
+  color: var(--on-copper);
+}
+
+/* Accesibilidad -------------------------------------------------------------- */
+:focus-visible {
+  outline: 3px solid var(--copper-300);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+:root[data-theme='light'] :focus-visible {
+  outline-color: var(--copper-600);
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--copper-400);
+  color: var(--on-copper);
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+main:focus {
+  outline: none;
+}
+
+/* Layout ---------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--narrow {
+  max-width: 760px;
+}
+
+.section {
+  position: relative;
+  padding-block: clamp(72px, 10vw, 128px);
+  scroll-margin-top: calc(var(--header-h) - 8px);
+}
+
+[id] {
+  scroll-margin-top: calc(var(--header-h) + 8px);
+}
+
+.section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+
+.section__head > div:first-child {
+  max-width: 720px;
+}
+
+.section__head--center {
+  justify-content: center;
+  text-align: center;
+}
+
+.section__head--center > div:first-child {
+  margin-inline: auto;
+}
+
+.section__title {
+  font-size: clamp(2rem, 1.2rem + 3.6vw, 3.6rem);
+}
+
+.section__subtitle {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  color: var(--accent-text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad-copper);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.gradient-text {
+  background: var(--grad-copper);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Animaciones de entrada (solo si hay IntersectionObserver y no hay reduced motion) */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s var(--ease-out),
+      transform 0.8s var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 60ms);
+  }
+
+  .reveal-ready [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .swap-in {
+    animation: swap-in 0.6s var(--ease-out) both;
+  }
+
+  .swap-in--late {
+    animation-delay: 0.08s;
+  }
+}
+
+@keyframes swap-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Cambio de tema --------------------------------------------------------------- */
+/* View Transitions: el JS anima un clip-path circular sobre la vista nueva. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* Respaldo sin View Transitions: transicion suave de colores. */
+@media (prefers-reduced-motion: no-preference) {
+  .theme-fade,
+  .theme-fade *,
+  .theme-fade *::before,
+  .theme-fade *::after {
+    transition:
+      background-color 0.4s ease,
+      border-color 0.4s ease,
+      color 0.4s ease,
+      fill 0.4s ease !important;
+  }
+}
+
+/* Reduced motion global: anula animaciones decorativas. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Las columnas de grid "auto"/"1fr" crecen hasta el min-content de su contenido
+   (textos con nowrap, etc.) y provocan scroll horizontal en 320px. */
+.hero__inner,
+.benefits__grid,
+.academy__layout,
+.ai__layout,
+.trust__layout,
+.contact__layout,
+.download__panel,
+.showcase__layout,
+.faq__groups,
+.footer__grid {
+  grid-template-columns: minmax(0, 1fr);
+}

@@ -1,0 +1,84 @@
+/* =============================================================================
+   Tokens de diseno — paleta tomada de src/theme.js de la app movil.
+   El tema se aplica con :root[data-theme="dark" | "light"].
+   ========================================================================== */
+:root {
+  --copper-100: #f5dcc7;
+  --copper-200: #e7b893;
+  --copper-300: #d89c72;
+  --copper-400: #c98b62;
+  --copper-500: #b0764f;
+  --copper-600: #8c6d42;
+  --copper-700: #6b5233;
+
+  --success: #5fd69a;
+  --warning: #e9b44c;
+  --danger: #e4573d;
+
+  --grad-copper: linear-gradient(135deg, var(--copper-100) 0%, var(--copper-300) 38%, var(--copper-500) 72%, var(--copper-700) 100%);
+  --grad-copper-soft: linear-gradient(135deg, var(--copper-200), var(--copper-400) 55%, var(--copper-500));
+  --on-copper: #150f0a;
+
+  --font-display: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --header-h: 68px;
+  --gutter: 16px;
+}
+
+:root,
+:root[data-theme='dark'] {
+  --bg: #090909;
+  --bg-elev: #0f0f11;
+  --surface: #141416;
+  --surface-alt: #1b1b1e;
+  --surface-sunken: #0b0b0c;
+  --border: #26262a;
+  --border-strong: #33333a;
+  --text: #f6f1eb;
+  --muted: #a7a099;
+  --dim: #8a837c;
+  --accent-text: var(--copper-300);
+  --glass: rgba(20, 20, 22, 0.62);
+  --glass-border: rgba(216, 156, 114, 0.18);
+  --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.75);
+  --glow: rgba(201, 139, 98, 0.35);
+  --grid-line: rgba(246, 241, 235, 0.045);
+  --qr-bg: #f6f1eb;
+  --qr-fg: #090909;
+}
+
+:root[data-theme='light'] {
+  --bg: #faf7f3;
+  --bg-elev: #ffffff;
+  --surface: #ffffff;
+  --surface-alt: #f3ede6;
+  --surface-sunken: #efe8df;
+  --border: #e6dcd1;
+  --border-strong: #d5c7b7;
+  --text: #1a1512;
+  --muted: #6b6159;
+  --dim: #7d7268;
+  /* Cobre profundo para texto: contraste AA sobre el fondo claro. */
+  --accent-text: var(--copper-700);
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(140, 109, 66, 0.22);
+  --shadow: 0 24px 60px -28px rgba(70, 45, 20, 0.35);
+  --glow: rgba(201, 139, 98, 0.28);
+  --grid-line: rgba(26, 21, 18, 0.05);
+  --qr-bg: #ffffff;
+  --qr-fg: #1a1512;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --gutter: 24px;
+  }
+}

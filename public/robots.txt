@@ -1,0 +1,5 @@
+# Barbattia — el dominio placeholder se reemplaza en build con VITE_SITE_URL.
+User-agent: *
+Allow: /
+
+Sitemap: https://barbattia.example/sitemap.xml
